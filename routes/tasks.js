@@ -53,5 +53,4 @@ router.delete("/:id", async (req, res) => {
   }
 });
 
-// Экспортируем роуты
 module.exports = router;
