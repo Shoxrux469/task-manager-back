@@ -1,15 +1,16 @@
-const express = require("express");
-const mongoose = require("mongoose");
-const cors = require("cors");
-const taskRoutes = require("./routes/tasks");
+import express from "express";
+import mongoose from "mongoose";
+import cors from "cors";
+import taskRoutes from "./routes/tasks.js"; // Ensure you include the .js extension
 
-require("dotenv").config();
+import dotenv from "dotenv";
+dotenv.config(); // Load environment variables
 
 const app = express();
 app.use(express.json());
 app.use(cors());
 
-// Подключение к MongoDB
+// Connect to MongoDB
 mongoose
   .connect(process.env.MONGO_URI, {
     useNewUrlParser: true,
@@ -18,14 +19,14 @@ mongoose
   .then(() => console.log("Connected to MongoDB"))
   .catch((error) => console.error("MongoDB connection error:", error));
 
-// Используйте роуты задач
+// Use task routes
 app.use("/api/tasks", taskRoutes);
 
-// Тестовый маршрут
+// Test route
 app.get("/", (req, res) => {
   res.send("API is running...");
 });
 
-// Запуск сервера
+// Start the server
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
