@@ -1,10 +1,11 @@
 import express from "express";
 import mongoose from "mongoose";
 import cors from "cors";
-import taskRoutes from "./routes/tasks.js"; // Ensure you include the .js extension
-
+import taskRoutes from "./routes/tasks.js";
+import userRoutes from "./routes/auth.js";
 import dotenv from "dotenv";
-dotenv.config(); // Load environment variables
+
+dotenv.config();
 
 const app = express();
 app.use(express.json());
@@ -19,8 +20,9 @@ mongoose
   .then(() => console.log("Connected to MongoDB"))
   .catch((error) => console.error("MongoDB connection error:", error));
 
-// Use task routes
+// Use task and user routes
 app.use("/api/tasks", taskRoutes);
+app.use("/api/users", userRoutes);
 
 // Test route
 app.get("/", (req, res) => {
